@@ -1,5 +1,32 @@
 ---
-// Массив навыков остался без изменений
+import { SEO } from 'astro-seo'
+
+interface Props {
+	title?: string
+	description?: string
+	canonical?: string
+	noindex?: boolean
+	nofollow?: boolean
+}
+
+const {
+	title = 'Daniel | Junior Full-Stack Developer',
+	description = '17-year-old self-taught developer turning pixels into seamless logic.',
+	canonical,
+	noindex = false,
+	nofollow = false,
+} = Astro.props
+
+// 1. Убедись, что в astro.config.mjs прописан site: 'https://...'
+// Если сайта еще нет, используй свой будущий домен здесь:
+const siteUrl = Astro.site?.origin || 'https://ds217.dev'
+
+// 2. ПОДКЛЮЧЕНИЕ КАРТИНКИ ИЗ PUBLIC
+// Важно: проверь, чтобы расширение файла в public было именно .jpg (не .png или .webp)
+const ogImageUrl = new URL('/og-image.jpg', siteUrl).href
+
+const pageUrl = canonical || new URL(Astro.url.pathname, siteUrl).href
+
 const skills = [
 	{ name: 'HTML5', level: 5 },
 	{ name: 'CSS3 / SCSS', level: 5 },
@@ -12,10 +39,47 @@ const skills = [
 
 <html lang='en'>
 	<head>
+		<SEO
+			title={title}
+			description={description}
+			canonical={pageUrl}
+			noindex={noindex}
+			nofollow={nofollow}
+			openGraph={{
+				basic: {
+					title: title,
+					type: 'website',
+					image: ogImageUrl,
+					url: pageUrl,
+				},
+				optional: {
+					description: description,
+					siteName: 'DS.2.17 Portfolio',
+				},
+				image: {
+					alt: 'DS.2.17 Portfolio Preview',
+				},
+			}}
+			twitter={{
+				card: 'summary_large_image',
+				title: title,
+				description: description,
+				image: ogImageUrl,
+			}}
+			extend={{
+				link: [{ rel: 'icon', href: '/img/favicon.svg' }],
+				meta: [
+					{
+						name: 'viewport',
+						content: 'width=device-width, initial-scale=1.0',
+					},
+					{ name: 'generator', content: Astro.generator },
+				],
+			}}
+		/>
+
 		<meta charset='utf-8' />
-		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
-		<title>DS.2.17 | Junior Developer Portfolio</title>
-		<link rel='icon' type='image/svg+xml' href='img/favicon.svg' />
+		<!-- Дальше идет твой остальной код без изменений -->
 		<link rel='preconnect' href='https://fonts.googleapis.com' />
 		<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
 		<link
