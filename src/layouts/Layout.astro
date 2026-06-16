@@ -18,14 +18,11 @@ const {
 	nofollow = false,
 } = Astro.props
 
-// 1. Убедись, что в astro.config.mjs прописан site: 'https://...'
-// Если сайта еще нет, используй свой будущий домен здесь:
+// 1. Базовый URL сайта
 const siteUrl = Astro.site?.origin || 'https://ds217.dev'
 
-// 2. ПОДКЛЮЧЕНИЕ КАРТИНКИ ИЗ PUBLIC
-// Важно: проверь, чтобы расширение файла в public было именно .jpg (не .png или .webp)
+// 2. URL картинки и страницы
 const ogImageUrl = new URL('/og-image.jpg', siteUrl).href
-
 const pageUrl = canonical || new URL(Astro.url.pathname, siteUrl).href
 
 const skills = [
@@ -80,7 +77,6 @@ const skills = [
 		/>
 
 		<meta charset='utf-8' />
-		<!-- Дальше идет твой остальной код без изменений -->
 		<link rel='preconnect' href='https://fonts.googleapis.com' />
 		<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
 		<link
@@ -89,6 +85,24 @@ const skills = [
 		/>
 	</head>
 	<body>
+		<script is:inline>
+			function updateTime() {
+				const timeElement = document.getElementById('belarus-time')
+				if (!timeElement) return
+				const now = new Date()
+				const belarusTime = new Intl.DateTimeFormat('en-GB', {
+					timeZone: 'Europe/Minsk',
+					hour: '2-digit',
+					minute: '2-digit',
+					second: '2-digit',
+					hour12: false,
+				}).format(now)
+				timeElement.textContent = belarusTime
+			}
+			setInterval(updateTime, 1000)
+			updateTime()
+		</script>
+
 		<div class='glow-layer'>
 			<div class='blob blob-1'></div>
 			<div class='blob blob-2'></div>
@@ -97,9 +111,9 @@ const skills = [
 		<main class='wrapper'>
 			<header class='header'>
 				<div class='logo-area'>
-					<span class='logo-text'
-						>DS.<span class='accent'>2.17</span></span
-					>
+					<span class='logo-text'>
+						DS.<span class='accent'>2.17</span>
+					</span>
 				</div>
 				<div class='nav-links'>
 					<span class='availability'>
@@ -174,9 +188,9 @@ const skills = [
 						I don't have any active projects at the moment, but you
 						can take a look at my past projects.
 					</p>
-					<a href='https://github.com/wElsonSh' class='github-link'
-						>github.com/wElsonSh ↗</a
-					>
+					<a href='https://github.com/wElsonSh' class='github-link'>
+						github.com/wElsonSh ↗
+					</a>
 				</div>
 			</section>
 
@@ -200,23 +214,5 @@ const skills = [
 				</div>
 			</footer>
 		</main>
-
-		<script is:inline>
-			function updateTime() {
-				const timeElement = document.getElementById('belarus-time')
-				if (!timeElement) return
-				const now = new Date()
-				const belarusTime = new Intl.DateTimeFormat('en-GB', {
-					timeZone: 'Europe/Minsk',
-					hour: '2-digit',
-					minute: '2-digit',
-					second: '2-digit',
-					hour12: false,
-				}).format(now)
-				timeElement.textContent = belarusTime
-			}
-			setInterval(updateTime, 1000)
-			updateTime()
-		</script>
 	</body>
 </html>

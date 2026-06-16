@@ -1,3 +1,4 @@
+/* VARIABLES */
 $primary: #ff6b00;
 $secondary: #ffb200;
 $text: #ffffff;
@@ -10,6 +11,7 @@ $font-mono: 'JetBrains Mono', monospace;
 
 $section-margin: clamp(60px, 12vh, 120px);
 
+/* GLOBAL STYLES */
 html,
 body {
     background-color: #050505;
@@ -28,6 +30,7 @@ body {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* LAYOUT ELEMENTS */
 .glow-layer {
     position: fixed;
     inset: 0;
@@ -130,7 +133,7 @@ body {
     }
 }
 
-/* HERO */
+/* HERO SECTION */
 .hero {
     margin-top: clamp(20px, 5vh, 60px);
     margin-bottom: $section-margin;
@@ -214,7 +217,7 @@ body {
     }
 }
 
-/* EXPERTISE */
+/* EXPERTISE SECTION */
 .stack-section {
     margin-bottom: $section-margin;
 
@@ -271,7 +274,7 @@ body {
     }
 }
 
-/* WORK */
+/* WORK SECTION */
 .work-section {
     margin-bottom: $section-margin;
 
