@@ -9,7 +9,7 @@ User-agent: *
 Allow: /
 
 Sitemap: ${sitemapUrl}
-  `.trim();
+    `.trim();
 
     return new Response(robotsTxt, {
         headers: {
